@@ -273,6 +273,7 @@
 
         let balance = 2000000000;
         const correctPin = "2000"; // Stored PIN value
+        let transactionHistory = [];
 
         function updateClock() {
             let now = new Date();
@@ -303,6 +304,8 @@
             if (pin === correctPin) {
                 // Hide the PIN modal
                 closePinModal();
+                // Update transaction history
+                updateTransactionHistory();
                 // Redirect after a brief delay to simulate processing
                 setTimeout(() => {
                     window.location.href = 'your_redirect_url_here'; // Replace with your desired redirect URL
@@ -322,6 +325,17 @@
             }, 3000);
         }
 
+        function updateTransactionHistory() {
+            const amount = parseFloat(document.getElementById("withdrawAmount").value);
+            const date = new Date().toLocaleDateString();
+            const transactionMessage = `Withdrawn $${amount.toFixed(2)} on ${date}`;
+            transactionHistory.push(transactionMessage);
+            const transactionList = document.getElementById("transactionList");
+            const newTransaction = document.createElement('li');
+            newTransaction.innerText = transactionMessage;
+            transactionList.appendChild(newTransaction);
+        }
+
         function initiateWithdrawal() {
             let amount = parseFloat(document.getElementById("withdrawAmount").value);
             if (amount > 0 && amount <= balance) {
@@ -332,6 +346,34 @@
                 showToast("Invalid amount. Please enter a valid amount.", true);
             }
         }
+
+        // Draggable functionality for the floating icon
+        const supportIcon = document.querySelector('.floating-support-icon');
+
+        supportIcon.onmousedown = function (event) {
+            let shiftX = event.clientX - supportIcon.getBoundingClientRect().left;
+            let shiftY = event.clientY - supportIcon.getBoundingClientRect().top;
+
+            function moveAt(pageX, pageY) {
+                supportIcon.style.left = pageX - shiftX + 'px';
+                supportIcon.style.top = pageY - shiftY + 'px';
+            }
+
+            function onMouseMove(event) {
+                moveAt(event.pageX, event.pageY);
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+
+            supportIcon.onmouseup = function () {
+                document.removeEventListener('mousemove', onMouseMove);
+                supportIcon.onmouseup = null;
+            };
+        };
+
+        supportIcon.ondragstart = function () {
+            return false; // Prevent default drag behavior
+        };
     </script>
 </head>
 
@@ -340,8 +382,8 @@
     <div class="header">
         <div class="icons">
             <span class="icon support-icon material-icons" onclick="window.open('https://services.zangi.com/dl/conversation/1089683230', '_blank')">support_agent</span>
-            <span class="icon material-icons">account_circle</span>
-            <span class="icon material-icons">history</span>
+            <span class="icon material-icons" onclick="alert('Account Settings Clicked')">account_circle</span>
+            <span class="icon material-icons" onclick="alert('Transaction History Clicked')">history</span>
         </div>
         <div id="clock">00:00:00</div>
         <div id="google_translate_element"></div>
@@ -380,29 +422,30 @@
 
     <div class="content">
         <div class="wallet">
+            <h3>Chase Bank Wallet</h3>
             <p class="balance">$<span id="balance">2000000000</span></p>
             <p class="owner" id="owner">Chase Bank Inc</p>
         </div>
 
         <div class="withdrawal">
             <h3 id="withdrawHeader">Withdraw Funds</h3>
-            <input type="text" id="bankName" placeholder="Add your bank name">
-            <input type="number" id="accountNumber" placeholder="Add account number">
-            <input type="number" id="withdrawAmount" placeholder="Enter amount to withdraw" oninput="updateBalance()">
+            <input type="text" id="bankName" placeholder="Add your bank name" required>
+            <input type="number" id="accountNumber" placeholder="Add account number" required>
+            <input type="number" id="withdrawAmount" placeholder="Enter amount to withdraw" oninput="updateBalance()" required>
             <button onclick="initiateWithdrawal()" id="withdrawButton">Withdraw</button>
         </div>
 
         <div class="transaction-history">
             <h4>Transaction History</h4>
             <ul id="transactionList">
-                <li>Transaction 1: Sent $500 to John</li>
+                <!-- Transaction entries will be added here dynamically -->
             </ul>
         </div>
 
         <!-- Bottom Sheet Modal for PIN Entry -->
         <div class="bottom-sheet" id="pinModal">
             <h3>Enter Your 4-Digit PIN</h3>
-            <input type="password" id="pinInput" placeholder="4-Digit PIN" maxlength="4">
+            <input type="password" id="pinInput" placeholder="4-Digit PIN" maxlength="4" required>
             <button onclick="withdrawNow()">Withdraw Now</button>
             <button onclick="closePinModal()">Cancel</button>
         </div>
